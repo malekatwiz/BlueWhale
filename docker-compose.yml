@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  bluewhale.main:
+    image: ${DOCKER_REGISTRY}bluewhalemain
+    build:
+      context: .
+      dockerfile: BlueWhale.Main\Dockerfile
