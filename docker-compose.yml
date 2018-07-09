@@ -6,3 +6,10 @@ services:
     build:
       context: .
       dockerfile: BlueWhale.Main\Dockerfile
+
+  bluewhale.security:
+    image: ${DOCKER_REGISTRY}bluewhalesecurity
+    build:
+      context: .
+      dockerfile: ..\BlueWhale.Security\Dockerfile
+
