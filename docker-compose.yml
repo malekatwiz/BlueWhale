@@ -11,5 +11,5 @@ services:
     image: ${DOCKER_REGISTRY}bluewhalesecurity
     build:
       context: .
-      dockerfile: ..\BlueWhale.Security\Dockerfile
+      dockerfile: BlueWhale.Security\Dockerfile
 

@@ -4,7 +4,8 @@ EXPOSE 80
 
 FROM microsoft/dotnet:2.1-sdk-nanoserver-1709 AS build
 WORKDIR /src
-COPY BlueWhale.Main/BlueWhale.Main.csproj BlueWhale.Main/
+
+COPY . .
 RUN dotnet restore BlueWhale.Main/BlueWhale.Main.csproj
 COPY . .
 WORKDIR /src/BlueWhale.Main
