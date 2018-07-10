@@ -1,5 +1,9 @@
 ﻿using System.Text;
+using BlueWhale.Security.Data;
+using BlueWhale.Security.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
@@ -24,6 +28,17 @@ namespace BlueWhale.Security
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
                     };
                 });
+        }
+
+        public static void ConfigureDbContext(this IServiceCollection serviceCollection, string connectionString)
+        {
+            serviceCollection.AddDbContext<UsersContext>(options => options.UseInMemoryDatabase("UsersContext"));
+        }
+
+        public static void ConfigureIdentity(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddIdentity<User, UserRole>().AddEntityFrameworkStores<UsersContext>()
+                .AddDefaultTokenProviders();
         }
     }
 }
