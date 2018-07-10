@@ -1,6 +1,8 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using BlueWhale.Security.Data;
 using BlueWhale.Security.Models;
+using BlueWhale.Security.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -30,15 +32,20 @@ namespace BlueWhale.Security
                 });
         }
 
-        public static void ConfigureDbContext(this IServiceCollection serviceCollection, string connectionString)
+        public static void ConfigureDbContext(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddDbContext<UsersContext>(options => options.UseInMemoryDatabase("UsersContext"));
+            serviceCollection.AddDbContext<UsersContext>(options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
         }
 
         public static void ConfigureIdentity(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddIdentity<User, UserRole>().AddEntityFrameworkStores<UsersContext>()
                 .AddDefaultTokenProviders();
+        }
+
+        public static void RegisterServices(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddTransient<ITokenService, TokenService>();
         }
     }
 }
