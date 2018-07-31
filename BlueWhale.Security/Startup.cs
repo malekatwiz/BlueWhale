@@ -1,5 +1,4 @@
-﻿using BlueWhale.Security.Data;
-using BlueWhale.Security.Models;
+﻿using BlueWhale.Security.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -21,7 +20,7 @@ namespace BlueWhale.Security
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.ConfigureDbContext();
+            services.ConfigureDbContext(Configuration["ConnectionString"]);
             services.ConfigureIdentity();
 
             services.ConfigureAuthentication(Configuration["Authentication:IssuerUrl"],

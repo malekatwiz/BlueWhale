@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using BlueWhale.Security.Data;
 using BlueWhale.Security.Models;
 using BlueWhale.Security.Services;
@@ -32,9 +31,10 @@ namespace BlueWhale.Security
                 });
         }
 
-        public static void ConfigureDbContext(this IServiceCollection serviceCollection)
+        public static void ConfigureDbContext(this IServiceCollection serviceCollection, string connectionString)
         {
-            serviceCollection.AddDbContext<UsersContext>(options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
+            //serviceCollection.AddDbContext<UsersContext>(options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
+            serviceCollection.AddDbContext<UsersContext>(options => options.UseSqlServer(connectionString));
         }
 
         public static void ConfigureIdentity(this IServiceCollection serviceCollection)
