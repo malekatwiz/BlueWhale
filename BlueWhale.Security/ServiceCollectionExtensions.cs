@@ -47,5 +47,13 @@ namespace BlueWhale.Security
         {
             serviceCollection.AddTransient<ITokenService, TokenService>();
         }
+
+        public static void ConfigureIdentityServer(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddIdentityServer()
+                .AddDeveloperSigningCredential()
+                .AddInMemoryClients(IdentityServerConfig.GetClients())
+                .AddInMemoryIdentityResources(IdentityServerConfig.GetIdentityResources());
+        }
     }
 }

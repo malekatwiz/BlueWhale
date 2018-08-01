@@ -20,15 +20,11 @@ namespace BlueWhale.Security
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.ConfigureDbContext(Configuration["ConnectionString"]);
-            services.ConfigureIdentity();
-
-            services.ConfigureAuthentication(Configuration["Authentication:IssuerUrl"],
-                Configuration["Authentication:AudienceUrl"],
-                Configuration["Authentication:SecretKey"]);
+            //services.ConfigureDbContext(Configuration["ConnectionString"]);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.ConfigureIdentityServer();
             services.RegisterServices();
         }
 
@@ -40,23 +36,23 @@ namespace BlueWhale.Security
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseAuthentication();
+            app.UseIdentityServer();
             app.UseMvc();
 
-            using (var serviceScope = app.ApplicationServices.CreateScope())
-            {
-                //var context = serviceScope.ServiceProvider.GetService<UsersContext>();
-                //DataSeed.SeedTestData(context);
+            //using (var serviceScope = app.ApplicationServices.CreateScope())
+            //{
+            //    //var context = serviceScope.ServiceProvider.GetService<UsersContext>();
+            //    //DataSeed.SeedTestData(context);
 
-                var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
-                var user = new User
-                {
-                    UserName = "Malek",
-                    Email = "malek.atwiz@hotmail.com"
-                };
+            //    var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
+            //    var user = new User
+            //    {
+            //        UserName = "Malek",
+            //        Email = "malek.atwiz@hotmail.com"
+            //    };
 
-                var r = userManager.CreateAsync(user, "@MyPassword1").GetAwaiter();
-            }
+            //    var r = userManager.CreateAsync(user, "@MyPassword1").GetAwaiter();
+            //}
         }
     }
 }
