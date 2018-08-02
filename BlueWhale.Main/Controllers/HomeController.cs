@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using BlueWhale.Main.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlueWhale.Main.Controllers
 {
@@ -11,6 +12,7 @@ namespace BlueWhale.Main.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

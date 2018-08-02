@@ -1,7 +1,5 @@
-﻿using BlueWhale.Security.Models;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,22 +35,7 @@ namespace BlueWhale.Security
             }
 
             app.UseIdentityServer();
-            app.UseMvc();
-
-            //using (var serviceScope = app.ApplicationServices.CreateScope())
-            //{
-            //    //var context = serviceScope.ServiceProvider.GetService<UsersContext>();
-            //    //DataSeed.SeedTestData(context);
-
-            //    var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
-            //    var user = new User
-            //    {
-            //        UserName = "Malek",
-            //        Email = "malek.atwiz@hotmail.com"
-            //    };
-
-            //    var r = userManager.CreateAsync(user, "@MyPassword1").GetAwaiter();
-            //}
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

@@ -4,7 +4,7 @@ namespace BlueWhale.Main
 {
     public static class ServiceCollectionExtensions
     {
-        public static void ConfigureAuthentication(this IServiceCollection serviceCollection)
+        public static void ConfigureAuthentication(this IServiceCollection serviceCollection, string securityUrl)
         {
             serviceCollection.AddAuthentication(options =>
                 {
@@ -15,7 +15,7 @@ namespace BlueWhale.Main
                 .AddOpenIdConnect("oidc", options =>
                 {
                     options.SignInScheme = "Cookies";
-                    options.Authority = "http://localhost:5000";
+                    options.Authority = securityUrl;
                     options.RequireHttpsMetadata = false;
                     options.ClientId = "BlueWhale.Main";
                     options.SaveTokens = true;

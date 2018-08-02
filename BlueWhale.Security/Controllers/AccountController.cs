@@ -1,44 +1,67 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using BlueWhale.Security.Models;
-using Microsoft.AspNetCore.Identity;
+using IdentityServer4.Services;
+using IdentityServer4.Stores;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.IISIntegration;
 
 namespace BlueWhale.Security.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AccountController : ControllerBase
+    [Route("[controller]")]
+    public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly RoleManager<UserRole> _roleManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly IIdentityServerInteractionService _identityServerInteractionService;
+        private readonly IAuthenticationSchemeProvider _authenticationSchemeProvider;
+        private readonly IClientStore _clientStore;
 
-        public AccountController(UserManager<User> userManager, RoleManager<UserRole> roleManager, SignInManager<User> signInManager)
+        public AccountController(IIdentityServerInteractionService identityServerInteractionService,
+            IAuthenticationSchemeProvider authenticationSchemeProvider,
+            IClientStore clientStore)
         {
-            _userManager = userManager;
-            _roleManager = roleManager;
-            _signInManager = signInManager;
+            _identityServerInteractionService = identityServerInteractionService;
+            _authenticationSchemeProvider = authenticationSchemeProvider;
+            _clientStore = clientStore;
         }
 
-        [HttpPost, Route("login")]
-        public async Task<IActionResult> LoginAsync([FromBody] LoginModel loginModel)
+        [HttpGet, Route("login")]
+        public async Task<IActionResult> LoginAsync(string returnUrl)
         {
-            if (loginModel == null)
-            {
-                return BadRequest();
-            }
+            var model = new LoginModel();
 
-            if (!string.IsNullOrEmpty(loginModel.Username) && !string.IsNullOrEmpty(loginModel.Password))
-            {
-                var result = await _signInManager.PasswordSignInAsync(loginModel.Username, loginModel.Password, false, false);
+            var context = await _identityServerInteractionService.GetAuthorizationContextAsync(returnUrl);
+            var schemes = await _authenticationSchemeProvider.GetAllSchemesAsync();
 
-                if (result.Succeeded)
+            var providers = schemes.Where(x => !string.IsNullOrEmpty(x.DisplayName) ||
+                                               string.Equals(x.Name, IISDefaults.AuthenticationScheme))
+                .Select(x => new ExternalProvider
                 {
-                    return Redirect("~/");
+                    DisplayName = x.DisplayName,
+                    AuthenticationScheme = x.Name
+                });
+
+            if (context?.ClientId != null)
+            {
+                var client = await _clientStore.FindClientByIdAsync(context.ClientId);
+                if (client?.IdentityProviderRestrictions != null && client.IdentityProviderRestrictions.Any())
+                {
+                    providers = providers.Where(x =>
+                        client.IdentityProviderRestrictions.Contains(x.AuthenticationScheme));
                 }
             }
 
-            return Unauthorized();
+            model.ReturnUrl = returnUrl;
+            model.Username = context?.LoginHint;
+            model.ExternalProviders = providers;
+
+            return View(model);
         }
+    }
+
+    public class ExternalProvider
+    {
+        public string DisplayName { get; set; }
+        public string AuthenticationScheme { get; set; }
     }
 }

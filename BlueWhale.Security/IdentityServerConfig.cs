@@ -13,9 +13,11 @@ namespace BlueWhale.Security
             {
                 new Client
                 {
-                    ClientId = Guid.NewGuid().ToString(),
-                    ClientName = "Malek",
+                    ClientId = "BlueWhale.Main",
+                    ClientName = "BlueWhale.Main",
                     AllowedGrantTypes = GrantTypes.Implicit,
+                    RedirectUris = {"http://localhost:5002/signin-oidc"},
+                    PostLogoutRedirectUris = {"http://localhost:5002/signout-callback-oidc"},
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
