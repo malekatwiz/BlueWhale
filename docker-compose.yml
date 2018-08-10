@@ -3,14 +3,16 @@ version: '3.4'
 services:
   bluewhale.security:
     image: ${DOCKER_REGISTRY}bluewhalesecurity
+    container_name: bluewhale.security
     build:
       context: .
       dockerfile: BlueWhale.Security\Dockerfile
 
   bluewhale.main:
       image: ${DOCKER_REGISTRY}bluewhalemain
+      container_name: bluewhale.main
+      links:
+        - bluewhale.security
       build:
         context: .
         dockerfile: BlueWhale.Main\Dockerfile
-      depends_on:
-        - bluewhale.security

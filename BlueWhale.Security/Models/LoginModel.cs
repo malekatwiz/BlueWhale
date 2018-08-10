@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using BlueWhale.Security.Controllers;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BlueWhale.Security.Models
 {
@@ -13,7 +11,5 @@ namespace BlueWhale.Security.Models
         public string Password { get; set; }
 
         public string ReturnUrl { get; set; }
-
-        public IEnumerable<ExternalProvider> ExternalProviders { get; set; }
     }
 }

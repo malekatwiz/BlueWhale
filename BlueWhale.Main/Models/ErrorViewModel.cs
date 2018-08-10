@@ -1,5 +1,3 @@
-using System;
-
 namespace BlueWhale.Main.Models
 {
     public class ErrorViewModel

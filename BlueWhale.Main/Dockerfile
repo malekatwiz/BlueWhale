@@ -6,9 +6,9 @@ FROM microsoft/dotnet:2.1-sdk-nanoserver-1709 AS build
 WORKDIR /src
 
 COPY . .
-RUN dotnet restore BlueWhale.Main/BlueWhale.Main.csproj
+RUN dotnet restore BlueWhale.Main.csproj
 COPY . .
-WORKDIR /src/BlueWhale.Main
+WORKDIR /src
 RUN dotnet build BlueWhale.Main.csproj -c Release -o /app
 
 FROM build AS publish

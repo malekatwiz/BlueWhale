@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using IdentityServer4;
 using IdentityServer4.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace BlueWhale.Security
 {
     public static class IdentityServerConfig
     {
-        public static IEnumerable<Client> GetClients()
+        public static IEnumerable<Client> GetClients(IConfiguration configuration)
         {
             return new List<Client>
             {
@@ -16,8 +16,8 @@ namespace BlueWhale.Security
                     ClientId = "BlueWhale.Main",
                     ClientName = "BlueWhale.Main",
                     AllowedGrantTypes = GrantTypes.Implicit,
-                    RedirectUris = {"http://localhost:5002/signin-oidc"},
-                    PostLogoutRedirectUris = {"http://localhost:5002/signout-callback-oidc"},
+                    RedirectUris = {$"http://{configuration["AudienceUrl"]}/signin-oidc"},
+                    PostLogoutRedirectUris = {$"http://{configuration["AudienceUrl"]}/signout-callback-oidc" },
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
