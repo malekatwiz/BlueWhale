@@ -18,6 +18,7 @@ namespace BlueWhale.Security
                     AllowedGrantTypes = GrantTypes.Implicit,
                     RedirectUris = {$"http://{configuration["AudienceUrl"]}/signin-oidc"},
                     PostLogoutRedirectUris = {$"http://{configuration["AudienceUrl"]}/signout-callback-oidc" },
+                    RequireConsent = false,
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,

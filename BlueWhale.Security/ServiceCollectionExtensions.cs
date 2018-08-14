@@ -13,7 +13,6 @@ namespace BlueWhale.Security
         {
             serviceCollection.AddIdentityServer()
                 .AddDeveloperSigningCredential(false)
-                //.AddSigningCredential(new X509Certificate2("localhost.pfx", "YourSecurePassword"))
                 .AddInMemoryClients(IdentityServerConfig.GetClients(configuration))
                 .AddInMemoryIdentityResources(IdentityServerConfig.GetIdentityResources());
         }
