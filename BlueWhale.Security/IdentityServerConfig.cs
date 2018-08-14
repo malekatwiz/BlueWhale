@@ -23,6 +23,10 @@ namespace BlueWhale.Security
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile
+                    },
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("Secretcode".Sha256())
                     }
                 }
             };

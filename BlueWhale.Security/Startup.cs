@@ -18,9 +18,12 @@ namespace BlueWhale.Security
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureUsersContext(Configuration);
+            services.ConfigureAspIdentity();
+            services.ConfigureIdentityServer(Configuration);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.ConfigureIdentityServer(Configuration);
             services.RegisterServices();
         }
 
