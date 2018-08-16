@@ -28,7 +28,7 @@ namespace BlueWhale.Security
         {
             serviceCollection.AddDbContext<UsersDbContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("UsersDb"));
+                options.UseSqlServer(configuration["UsersDbConnectionString"]);
             });
         }
 

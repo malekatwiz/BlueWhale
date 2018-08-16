@@ -1,9 +1,15 @@
 version: '3.4'
 
 services:
+  sql.data:
+    image: microsoft/mssql-server-linux:2017-latest
+    container_name: bluewhale.sql
+
   bluewhale.security:
     image: ${DOCKER_REGISTRY}bluewhalesecurity
     container_name: bluewhale.security
+    depends_on:
+      - sql.data
     build:
       context: .
       dockerfile: BlueWhale.Security/Dockerfile

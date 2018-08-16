@@ -1,10 +1,18 @@
 version: '3.4'
 
 services:
+  sql.data:
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "5005:1433"
+
   bluewhale.security:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - AudienceUrl=http://${BLUEWHALE_ADDRESS}:5101
+      - UsersDbConnectionString=Server=sql.data;Database=BlueWhale.Users;User Id=sa;Password=Pass@word
     ports: 
       - "5100:80"
 
