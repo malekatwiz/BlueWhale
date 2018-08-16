@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlueWhale.Main", "BlueWhale
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{BE8F9B09-9634-4551-986D-A8C8FC3F9397}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueWhale.Security", "BlueWhale.Security\BlueWhale.Security.csproj", "{A6AB999B-FF7D-4A66-A632-6A5F4307AA44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlueWhale.Security", "BlueWhale.Security\BlueWhale.Security.csproj", "{A6AB999B-FF7D-4A66-A632-6A5F4307AA44}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{15AC21F2-BC99-48C3-ACAA-09CC9EBE78D4}"
+	ProjectSection(SolutionItems) = preProject
+		.env = .env
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

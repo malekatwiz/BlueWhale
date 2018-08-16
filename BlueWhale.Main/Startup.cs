@@ -22,7 +22,7 @@ namespace BlueWhale.Main
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-            services.ConfigureAuthentication(Configuration["Security.Url"]);
+            services.ConfigureAuthentication(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

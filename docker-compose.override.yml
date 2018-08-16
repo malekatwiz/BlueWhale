@@ -1,25 +1,16 @@
 version: '3.4'
 
 services:
-  bluewhale.main:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    ports: 
-      - "5002:80"
-    networks:
-      default:
-        ipv4_address: 172.19.157.179
-
   bluewhale.security:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - AudienceUrl=http://${BLUEWHALE_ADDRESS}:5101
     ports: 
       - "5100:80"
-    networks:
-      default:
-        ipv4_address: 172.19.157.178
 
-networks:
-  default:
-    external:
-      name: nat
+  bluewhale.main:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Security.Url=http://10.0.75.1:5100
+    ports: 
+      - "5101:80"

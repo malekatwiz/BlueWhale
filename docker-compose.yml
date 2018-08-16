@@ -6,13 +6,13 @@ services:
     container_name: bluewhale.security
     build:
       context: .
-      dockerfile: BlueWhale.Security\Dockerfile
+      dockerfile: BlueWhale.Security/Dockerfile
 
   bluewhale.main:
       image: ${DOCKER_REGISTRY}bluewhalemain
       container_name: bluewhale.main
-      links:
+      depends_on:
         - bluewhale.security
       build:
         context: .
-        dockerfile: BlueWhale.Main\Dockerfile
+        dockerfile: BlueWhale.Main/Dockerfile

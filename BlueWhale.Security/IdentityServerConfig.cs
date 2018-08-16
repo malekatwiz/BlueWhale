@@ -16,8 +16,9 @@ namespace BlueWhale.Security
                     ClientId = "BlueWhale.Main",
                     ClientName = "BlueWhale.Main",
                     AllowedGrantTypes = GrantTypes.Implicit,
-                    RedirectUris = {$"http://{configuration["AudienceUrl"]}/signin-oidc"},
-                    PostLogoutRedirectUris = {$"http://{configuration["AudienceUrl"]}/signout-callback-oidc" },
+                    ClientUri = configuration["AudienceUrl"],
+                    RedirectUris = {$"{configuration["AudienceUrl"]}/signin-oidc"},
+                    PostLogoutRedirectUris = {$"{configuration["AudienceUrl"]}/signout-callback-oidc" },
                     RequireConsent = false,
                     AllowedScopes =
                     {

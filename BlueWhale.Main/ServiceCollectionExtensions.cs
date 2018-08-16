@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BlueWhale.Main
 {
     public static class ServiceCollectionExtensions
     {
-        public static void ConfigureAuthentication(this IServiceCollection serviceCollection, string securityUrl)
+        public static void ConfigureAuthentication(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
             serviceCollection.AddAuthentication(options =>
                 {
@@ -15,7 +16,7 @@ namespace BlueWhale.Main
                 .AddOpenIdConnect("oidc", options =>
                 {
                     options.SignInScheme = "Cookies";
-                    options.Authority = securityUrl;
+                    options.Authority = configuration["Security.Url"];
                     options.RequireHttpsMetadata = false;
                     options.ClientId = "BlueWhale.Main";
                     options.SaveTokens = true;

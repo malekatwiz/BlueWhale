@@ -15,7 +15,7 @@ namespace BlueWhale.Security
 
         public static void ConfigureIdentityServer(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
-            serviceCollection.AddIdentityServer()
+            serviceCollection.AddIdentityServer(x => x.IssuerUri = "null")
                 .AddDeveloperSigningCredential(false)
                 .AddInMemoryPersistedGrants()
                 .AddInMemoryIdentityResources(IdentityServerConfig.GetIdentityResources())
