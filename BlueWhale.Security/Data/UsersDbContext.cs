@@ -9,7 +9,13 @@ namespace BlueWhale.Security.Data
         public UsersDbContext(DbContextOptions<UsersDbContext> options)
         :base(options)
         {
+        }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<ApplicationUser>().ToTable("AspNetUsers");
         }
     }
 }
