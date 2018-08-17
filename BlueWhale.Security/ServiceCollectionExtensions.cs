@@ -1,5 +1,6 @@
 ﻿using BlueWhale.Security.Data;
 using BlueWhale.Security.Models;
+using BlueWhale.Security.Services.LoginService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,13 +12,13 @@ namespace BlueWhale.Security
     {
         public static void RegisterServices(this IServiceCollection serviceCollection)
         {
+            serviceCollection.AddTransient<ILoginService, LoginService>();
         }
 
         public static void ConfigureIdentityServer(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
             serviceCollection.AddIdentityServer(x => x.IssuerUri = "null")
                 .AddDeveloperSigningCredential(false)
-                .AddInMemoryPersistedGrants()
                 .AddInMemoryIdentityResources(IdentityServerConfig.GetIdentityResources())
                 .AddInMemoryClients(IdentityServerConfig.GetClients(configuration))
                 .AddAspNetIdentity<ApplicationUser>();

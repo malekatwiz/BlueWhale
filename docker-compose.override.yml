@@ -12,7 +12,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - AudienceUrl=http://${BLUEWHALE_ADDRESS}:5101
-      - UsersDbConnectionString=Server=sql.data;Database=BlueWhale_Users;User Id=sa;Password=Pass@word
+      - UsersDbConnectionString=Server=sql.data;Database=BlueWhale_Users;MultipleActiveResultSets=True;User Id=sa;Password=Pass@word;
     ports: 
       - "5100:80"
 

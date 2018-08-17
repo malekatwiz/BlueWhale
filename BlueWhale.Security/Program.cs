@@ -32,6 +32,8 @@ namespace BlueWhale.Security
                 try
                 {
                     context.Database.Migrate();
+
+                    new UsersDbSeeder().SeedAsync(context).GetAwaiter();
                 }
                 catch (Exception ex)
                 {
