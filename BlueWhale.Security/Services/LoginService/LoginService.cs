@@ -17,7 +17,7 @@ namespace BlueWhale.Security.Services.LoginService
 
         public Task<ApplicationUser> FindByUsername(string username)
         {
-            return _userManager.FindByEmailAsync(username);
+            return _userManager.FindByNameAsync(username);
         }
 
         public async Task<bool> ValidateCredentials(ApplicationUser user, string password)

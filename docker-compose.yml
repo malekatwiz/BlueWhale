@@ -4,6 +4,8 @@ services:
   sql.data:
     image: microsoft/mssql-server-linux:2017-latest
     container_name: bluewhale.sql
+    volumes:
+      - "c:/BlueWhale.UsersData:/var/opt/mssql"
 
   bluewhale.security:
     image: ${DOCKER_REGISTRY}bluewhalesecurity
