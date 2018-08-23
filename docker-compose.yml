@@ -16,6 +16,15 @@ services:
       context: .
       dockerfile: BlueWhale.Security/Dockerfile
 
+  bluewhale.exchange:
+    image: ${DOCKER_REGISTRY}bluewhaleexchange
+    container_name: bluewhale.exchange
+    depends_on:
+      - bluewhale.security
+    build:
+      context: .
+      dockerfile: BlueWhale.Exchange/Dockerfile
+
   bluewhale.main:
       image: ${DOCKER_REGISTRY}bluewhalemain
       container_name: bluewhale.main

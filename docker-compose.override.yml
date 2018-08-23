@@ -16,6 +16,13 @@ services:
     ports: 
       - "5100:80"
 
+  bluewhale.exchange:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Security.Url=http://10.0.75.1:5100
+    ports:
+      - "5102:80"
+
   bluewhale.main:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development

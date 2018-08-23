@@ -15,7 +15,7 @@ namespace BlueWhale.Security
                 {
                     ClientId = "BlueWhale.Main",
                     ClientName = "BlueWhale.Main",
-                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
                     ClientUri = configuration["AudienceUrl"],
                     RedirectUris = {$"{configuration["AudienceUrl"]}/signin-oidc"},
                     PostLogoutRedirectUris = {$"{configuration["AudienceUrl"]}/signout-callback-oidc" },
@@ -23,7 +23,8 @@ namespace BlueWhale.Security
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "BlueWhale.Exchange"
                     },
                     ClientSecrets = new List<Secret>
                     {
@@ -33,12 +34,20 @@ namespace BlueWhale.Security
             };
         }
 
+        public static List<ApiResource> GetApiResources()
+        {
+            return new List<ApiResource>
+            {
+                new ApiResource("BlueWhale.Exchange", "BlueWhale Exchange API")
+            };
+        }
+
         public static IEnumerable<IdentityResource> GetIdentityResources()
         {
             return new IdentityResource[]
             {
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile(),
+                new IdentityResources.Profile()
             };
         }
     }

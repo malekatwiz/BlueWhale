@@ -20,6 +20,7 @@ namespace BlueWhale.Security
             serviceCollection.AddIdentityServer(x => x.IssuerUri = "null")
                 .AddDeveloperSigningCredential(false)
                 .AddInMemoryIdentityResources(IdentityServerConfig.GetIdentityResources())
+                .AddInMemoryApiResources(IdentityServerConfig.GetApiResources())
                 .AddInMemoryClients(IdentityServerConfig.GetClients(configuration))
                 .AddAspNetIdentity<ApplicationUser>();
         }
