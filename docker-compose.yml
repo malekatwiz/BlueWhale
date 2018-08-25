@@ -7,6 +7,10 @@ services:
     volumes:
       - "c:/BlueWhale.UsersData:/var/opt/mssql"
 
+  rabbitmq:
+    image: rabbitmq:3
+    container_name: bluewhale.rabbitmq
+
   bluewhale.security:
     image: ${DOCKER_REGISTRY}bluewhalesecurity
     container_name: bluewhale.security
@@ -21,6 +25,7 @@ services:
     container_name: bluewhale.exchange
     depends_on:
       - bluewhale.security
+      - rabbitmq
     build:
       context: .
       dockerfile: BlueWhale.Exchange/Dockerfile

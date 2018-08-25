@@ -19,6 +19,7 @@ namespace BlueWhale.Exchange
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
             services.AddAuthorization();
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>

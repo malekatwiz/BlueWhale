@@ -27,5 +27,6 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - Security.Url=http://10.0.75.1:5100
+      - Exchange.Url=http://bluewhale.exchange
     ports: 
       - "5101:80"
