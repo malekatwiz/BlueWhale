@@ -10,6 +10,7 @@ services:
   rabbitmq:
     image: rabbitmq:3
     container_name: bluewhale.rabbitmq
+    hostname: bluewhale.rabbitmq
 
   bluewhale.security:
     image: ${DOCKER_REGISTRY}bluewhalesecurity

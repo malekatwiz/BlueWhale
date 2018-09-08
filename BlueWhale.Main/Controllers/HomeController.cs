@@ -1,11 +1,14 @@
 ﻿using System.Diagnostics;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BlueWhale.Main.Models;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using RabbitMQ.Client;
 
 namespace BlueWhale.Main.Controllers
 {
@@ -28,6 +31,22 @@ namespace BlueWhale.Main.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost, Route("send")]
+        public IActionResult SendValues(MessageModel message)
+        {
+            var factory = new ConnectionFactory {HostName = "bluewhale.rabbitmq" };
+            using (var connection = factory.CreateConnection())
+            using (var channel = connection.CreateModel())
+            {
+                channel.QueueDeclare("BlueWhale.Sender.Queue", false, false, false);
+
+                var jsonMessage = JsonConvert.SerializeObject(message);
+                channel.BasicPublish("", "bluewhale", null, Encoding.UTF8.GetBytes(jsonMessage));
+            }
+
+            return Ok("message queued");
         }
 
         public async Task<IActionResult> GetValues()

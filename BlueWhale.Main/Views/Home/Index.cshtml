@@ -7,3 +7,30 @@
         <h2>Welcome to Blue Whale</h2>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <input type="text" class="form-control" id="sendMessageBox" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <button class="btn btn-primary" type="button" onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+    function sendMessage() {
+        var message = $("#sendMessageBox").val();
+        $.ajax({
+            type: "POST",
+            url: "/send",
+            data: { message },
+            success: function () {
+                $("#sendMessageBox").val("");
+            }
+        });
+    }
+</script>
